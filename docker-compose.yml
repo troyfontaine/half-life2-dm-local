@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+
+  team-fortress-2:
+    container_name: tf2
+    image: troyfontaine/teamfortress2-local:latest
+    ports:
+      - "27015:27015"
+      - "27015:27015/udp"
+      - "27020:27020/udp"
+    env_file: custom/common.env
+    volumes:
+      - "${PWD}/custom/motd_default.txt:/home/steam/tf2-dedicated/tf/cfg/motd_default.txt"
