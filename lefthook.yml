@@ -1,0 +1,31 @@
+---
+pre-push:
+  commands:
+    build:
+      run: |
+        DOCKER_BUILDKIT=1 docker build -t \
+        troyfontaine/half-life2-dm-local:pre-push .
+    test:
+      run: |
+        docker run -d --rm --name hl2dm \
+        troyfontaine/half-life2-dm-local:pre-push \
+        && sleep 90s; \
+        docker logs hl2dm 2>&1 | grep RecordSteamInterfaceCreation; \
+        docker stop hl2dm \
+        && docker image rm \
+        troyfontaine/half-life2-dm-local:pre-push
+
+pre-commit:
+  parallel: true
+  commands:
+    dockerfile-lint:
+      glob: "Dockerfile"
+      run: |
+        docker run --rm -i \
+        hadolint/hadolint < {staged_files}
+    shell-check:
+      glob: "*.sh"
+      run: |
+        docker run --rm -it -v \
+        "$PWD:/mnt" koalaman/shellcheck:stable \
+        {staged_files}

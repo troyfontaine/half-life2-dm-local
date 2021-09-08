@@ -1,3 +1,3 @@
-# template
+# Half-Life 2 Deathmatch Dedicated Server
 
-Github Repository template for projects
+Dockerized Dedicated server for Valve's Half-Life 2 Deathmatch
