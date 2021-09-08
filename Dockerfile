@@ -1,6 +1,5 @@
 FROM debian:buster-slim AS base
 
-LABEL maintainer="tfontaine@troyfontaine.com"
 ARG PUID=1000
 
 ENV USER="steam"
@@ -10,6 +9,7 @@ ENV STEAMCMDDIR "${HOMEDIR}/steamcmd"
 RUN set -x \
     && dpkg --add-architecture i386 \
     && apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
     --no-install-suggests \
     lib32stdc++6=8.3.0-6 \
