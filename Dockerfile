@@ -101,7 +101,9 @@ RUN mkdir -p "${STEAM_APP_DIR}" \
     && ./steamcmd.sh +login anonymous +force_install_dir \
     "${STEAM_APP_DIR}" +app_update "${STEAM_APP_ID}" +quit
 
-COPY --chown=steam:steam --chmod=755 config/* "${STEAM_APP_CFG_DIR}/"
+COPY --chown=steam:steam --chmod=755 config/server.cfg "${STEAM_APP_CFG_DIR}/"
+
+COPY --chown=steam:steam --chmod=755 config/motd.txt "${STEAM_APP_DIR}/${STEAM_APP_CFG_NAME}/"
 
 COPY --chown=steam:steam hl2mp_update.txt "${HOMEDIR}/"
 
