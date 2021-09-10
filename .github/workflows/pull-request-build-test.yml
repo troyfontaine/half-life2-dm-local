@@ -14,6 +14,14 @@ jobs:
         with:
           dockerfile: Dockerfile
 
+      - name: shellcheck
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          pattern: "*.sh"
+          exclude: "./.git/*"
+
   build_amd64:
     name: Build code on AMD64 Architecture
     runs-on: ubuntu-latest
